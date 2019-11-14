@@ -56,24 +56,28 @@ const UpdateMovie = props => {
           name="title"
           placeholder="Movie Title..."
           onChange={handleChange}
+          value={movieData.title}
         />
         <input
           type="text"
           name="director"
           placeholder="Director(s)..."
           onChange={handleChange}
+          value={movieData.director}
         />
         <input
           type="number"
           name="metascore"
           placeholder="Metascore..."
           onChange={handleChange}
+          value={movieData.metascore}
         />
         <input
           type="text"
           name="stars"
           placeholder="Stars..."
           onChange={handleChange}
+          value={movieData.stars}
         />
         <button type="submit">Update Movie Info</button>
       </form>

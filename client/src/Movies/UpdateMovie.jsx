@@ -45,7 +45,10 @@ const UpdateMovie = props => {
   /// Updates the changes so the user can edit movie title information
   const updateMovieInfo = event => {
     event.preventDefault();
-    console.log(movieData);
+    axios
+      .put(`http://localhost:5000/api/movies/${movieData.id}`, movieData)
+      .then(response => props.history.push(`/movies/${response.data.id}`))
+      .catch(error => console.log(error));
   };
 
   return (

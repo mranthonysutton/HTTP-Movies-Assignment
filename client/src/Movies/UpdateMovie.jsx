@@ -5,24 +5,44 @@ const initialMovie = {
   title: "",
   director: "",
   metascore: "",
-  stars: ""
+  stars: []
 };
 
-const UpdateMovie = () => {
+const UpdateMovie = props => {
   const [movieData, setMovieData] = useState(initialMovie);
 
+  // sets what the user enters from the form to movieData state
   const handleChange = event => {
     event.persist();
 
     let value = event.target.value;
 
-    if (event.target.name === "metascore") {
-      value = parseInt(value, 10);
-    }
+    // if (event.target.name === "metascore") {
+    //   value = parseInt(value, 10);
+    // }
 
-    setMovieData({ ...movieData, [event.target.name]: value });
+    // Allows multiple stars to be entered and then split based upon the comma
+    if (event.target.name === "stars") {
+      setMovieData({
+        ...movieData,
+        stars: event.target.value.split(",")
+      });
+    } else {
+      setMovieData({ ...movieData, [event.target.name]: value });
+    }
   };
 
+  useEffect(() => {
+    if (props.movies.length > 0) {
+      const newMovie = props.movies.find(
+        movie => `${movie.id}` === props.match.params.id
+      );
+      setMovieData(newMovie);
+      console.log("NEW MOVIE: ", newMovie);
+    }
+  }, [props.movies, props.match.params.id]);
+
+  /// Updates the changes so the user can edit movie title information
   const updateMovieInfo = event => {
     event.preventDefault();
     console.log(movieData);
@@ -51,7 +71,7 @@ const UpdateMovie = () => {
         />
         <input
           type="text"
-          name="starts"
+          name="stars"
           placeholder="Stars..."
           onChange={handleChange}
         />

@@ -33,14 +33,11 @@ const UpdateMovie = props => {
   };
 
   useEffect(() => {
-    if (props.movies.length > 0) {
-      const newMovie = props.movies.find(
-        movie => `${movie.id}` === props.match.params.id
-      );
-      setMovieData(newMovie);
-      console.log("NEW MOVIE: ", newMovie);
-    }
-  }, [props.movies, props.match.params.id]);
+    axios
+      .get(`http://localhost:5000/api/movies/${props.match.params.id}`)
+      .then(response => setMovieData(response.data))
+      .catch(error => console.log(error));
+  }, [props.match.params.id]);
 
   /// Updates the changes so the user can edit movie title information
   const updateMovieInfo = event => {

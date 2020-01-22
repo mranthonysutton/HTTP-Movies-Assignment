@@ -10,7 +10,9 @@ export default class MovieList extends Component {
     };
   }
 
+  // runs everytime that the user goes to the home page
   componentDidMount() {
+    console.log("MOVIR LIST AXIOS (running...)");
     axios
       .get("http://localhost:5000/api/movies")
       .then(res => this.setState({ movies: res.data }))
